@@ -33,7 +33,16 @@ fv() {
 # same as Alt-C
 cdf() {
   local dir
+  if [[ $# == 1 ]] then
+  dir=$(fd --type d --hidden --follow --exclude .git . $1 | fzf \
+    --preview 'ls -la {}' \
+  ) && cd "$dir"
+
+  else
   dir=$(fd --type d --hidden --follow --exclude .git | fzf \
     --preview 'ls -la {}' \
   ) && cd "$dir"
+
+  fi
+
 }
