@@ -1,1 +1,5 @@
-/home/aragorn/.config/alacritty/alacritty.toml
+[window]
+startup_mode="Maximized"
+
+[font]
+size=16
