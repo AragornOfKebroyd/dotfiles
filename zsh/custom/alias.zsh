@@ -1,2 +1,2 @@
-alias fd=fdfind
-alias bat=batcat
+# alias fd=fdfind
+# alias bat=batcat

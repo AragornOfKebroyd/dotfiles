@@ -4,7 +4,7 @@
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # generic apt needs
-sudo apt install cmake g++ gcc pkg-config libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 tmux zsh build-essential clang fzf 
+sudo apt install cmake g++ gcc pkg-config libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 tmux zsh build-essential clang fd-find bat
 
 # node
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
@@ -30,3 +30,22 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x8
 sudo rm -rf /opt/nvim-linux-x86_64
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+# ripgrep
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep_14.1.1-1_amd64.deb
+sudo dpkg -i ripgrep_14.1.1-1_amd64.deb
+
+# fd-find
+ln -s $(which fdfind) ~/.local/bin/fd
+sudo ln -s $(which fdfind) /usr/local/bin/fd
+
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+mv $(which fzf) /usr/bin/local
+
+# bat
+sudo ln -s $(which batcat) /usr/local/bin/bat
+
+
+omz reload
