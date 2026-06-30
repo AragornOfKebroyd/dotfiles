@@ -25,24 +25,40 @@ export FZF_CTRL_T_OPTS="
 # fuzzy open file in nvim
 fv() {
   local file
-  file=$(fd --type f --hidden --follow --exclude .git | fzf \
-    --preview 'bat --style=numbers --color=always {}' \
-  ) && nvim "$file"
+  if [[ $# == 1 ]] then
+    if [[ $1 == "-p" ]] then
+      file=$(fd --type f --hidden --follow --exclude .git . ~/projects | fzf \
+        --preview 'bat --style=numbers --color=always {}' \
+      ) && nvim "$file"
+    else
+      file=$(fd --type f --hidden --follow --exclude .git . $1 | fzf \
+        --preview 'bat --style=numbers --color=always {}' \
+      ) && nvim "$file"
+    fi
+  else
+    file=$(fd --type f --hidden --follow --exclude .git | fzf \
+      --preview 'bat --style=numbers --color=always {}' \
+    ) && nvim "$file"
+  fi
+ 
 }
 
 # same as Alt-C
 cdf() {
   local dir
   if [[ $# == 1 ]] then
-  dir=$(fd --type d --hidden --follow --exclude .git . $1 | fzf \
-    --preview 'ls -la {}' \
-  ) && cd "$dir"
-
+    if [[ $1 == "-p" ]] then
+      dir=$(fd --type d --hidden --follow --exclude .git . ~/projects | fzf \
+        --preview 'ls -la {}' \
+      ) && cd "$dir"
+    else
+      dir=$(fd --type d --hidden --follow --exclude .git . $1 | fzf \
+        --preview 'ls -la {}' \
+      ) && cd "$dir"
+    fi
   else
-  dir=$(fd --type d --hidden --follow --exclude .git | fzf \
-    --preview 'ls -la {}' \
-  ) && cd "$dir"
-
+    dir=$(fd --type d --hidden --follow --exclude .git | fzf \
+      --preview 'ls -la {}' \
+    ) && cd "$dir"
   fi
-
 }
